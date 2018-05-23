@@ -91,7 +91,7 @@ $(document).ready(function() {
 
 ### 定义裁剪区块
 
-[example-for-globalCompositeOperation w3cschool](http://www.w3school.com.cn/tags/canvas_globalcompositeoperation.asp/)
+[example-for-globalCompositeOperation w3cschool](http://www.w3school.com.cn/tags/canvas_globalcompositeoperation.asp)
 
 1. 保存在图片点击的坐标
 
@@ -301,5 +301,66 @@ $nameimg 拿到ID
 ``` html
 <!-- nameimg === xhr.responseText -->
 $('#myimg').html('<img src="upload/' + xhr.responseText + '.png"/>');
+
+```
+
+
+### 如何 只拿 裁剪区域外的 图片
+
+1. 不 清理 画布
+
+2. `ctx.globalCompositeOperation = 'xor'` 使用异或操作对源图像与目标图像进行组合
+
+3. `ctx.fill()` 填充
+
+> 尝试 http://llever.com/crop-simple-explain
+
+[剪切版 - crop](./crop.js)
+
+``` js
+            $('#crop').click(function() {
+                condition = 0;
+
+                //  var pattern = ctx.createPattern(imageObj, "repeat");
+                //ctx.fillStyle = pattern;
+                $('.spot').each(function() {
+                    $(this).remove();
+
+                })
+
+                //  1. 不清理 画布
+
+                ctx.globalCompositeOperation = 'xor'; // 2. 
+                //draw the polygon
+                setTimeout(function() {
+
+
+                    //console.log(points);
+                    var offset = $('#myCanvas').offset();
+
+
+                    for (var i = 0; i < points.length; i += 2) {
+                        var x = parseInt(jQuery.trim(points[i]));
+                        var y = parseInt(jQuery.trim(points[i + 1]));
+
+
+                        if (i == 0) {
+                            ctx.moveTo(x - offset.left, y - offset.top);
+                        } else {
+                            ctx.lineTo(x - offset.left, y - offset.top);
+                        }
+                    }
+                        ctx.fill() // 3.
+
+                    // }
+                }, 20);
+
+            });
+
+       // }
+    });
+
+});
+
 
 ```
