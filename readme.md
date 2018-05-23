@@ -1,4 +1,4 @@
-# Name [![explain](http://llever.com/explain.svg)](https://github.com/chinanf-boy/Source-Explain)
+# bit Crop [![explain](http://llever.com/explain.svg)](https://github.com/chinanf-boy/Source-Explain)
 
 「 图片 裁剪 `crop` 简单 说明 」
 
